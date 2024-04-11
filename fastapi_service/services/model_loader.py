@@ -31,12 +31,12 @@ class AbstractLoader(ABC):
 
 
 class S3Loader(AbstractLoader):
-    def get(self, conf: Settings) -> bytes:
-        response = s3.get_object(Bucket=conf.s3.bucket, Key=conf.s3.last_data_with_prediction_name)
+    def get(self, filename: str, conf: Settings) -> bytes:
+        response = s3.get_object(Bucket=conf.s3.bucket, Key=filename)
         model_bytes = response['Body'].read()
         return model_bytes
 
 
-def get_last_data_with_prediction() -> pd.DataFrame:
-    csv = S3Loader().get(settings).decode('utf-8')
+def get_last_data_with_prediction(index_name) -> pd.DataFrame:
+    csv = S3Loader().get(f'last_hundred_{index_name}.csv', settings).decode('utf-8')
     return pd.read_csv(io.StringIO(csv))

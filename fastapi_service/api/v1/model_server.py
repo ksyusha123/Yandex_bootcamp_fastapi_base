@@ -8,7 +8,7 @@ logger = logging.getLogger()
 router = APIRouter()
 
 
-@router.post("/predict")
-async def predict_item():
-    df = get_last_data_with_prediction()
+@router.get("/predict")
+async def predict_item(index_name: str = "imoex"):
+    df = get_last_data_with_prediction(index_name)
     return df.to_dict()

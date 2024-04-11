@@ -11,7 +11,6 @@ class S3(BaseSettings):
         env_prefix = "S3_"
 
     bucket: str = "studcamp-ml"
-    last_data_with_prediction_name: str = "last_hundred_imoex.csv"
 
 
 class Redis(BaseSettings):
