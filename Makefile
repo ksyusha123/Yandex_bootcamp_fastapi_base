@@ -17,14 +17,8 @@ check_and_rename_env:
 build: check_and_rename_env
 	docker compose build
 
+run:
+	docker compose up -d
 
-build_cuda: check_and_rename_env
-	docker compose  -f docker_compose.gpu.yml build
-
-
-run_build :
-		docker compose build
-
-run_build_gpu :
-		docker compose -f docker_compose.gpu.yml up
-
+stop:
+	docker compose down 

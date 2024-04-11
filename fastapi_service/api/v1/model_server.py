@@ -2,15 +2,13 @@ import logging
 
 from fastapi import APIRouter
 
+from fastapi_service.services.model_loader import get_last_data_with_prediction
+
 logger = logging.getLogger()
 router = APIRouter()
 
 
-@router.post("/predict_item")
+@router.post("/predict")
 async def predict_item():
-    return {"prediction"}
-
-
-@router.post("/predict_items")
-async def predict_items():
-    return {"prediction"}
+    df = get_last_data_with_prediction()
+    return df.to_dict()

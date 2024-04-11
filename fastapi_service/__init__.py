@@ -15,7 +15,7 @@ app = FastAPI(
 
 @app.get("/")
 async def root():
-    return {"message": "good"}
+    return {"easter_egg": "https://youtu.be/dQw4w9WgXcQ?si=9kGhiJeiE0V_mfcp"}
 
 
 @app.on_event("startup")
@@ -24,4 +24,4 @@ async def startup():
         logging_config.dictConfig(LOGGING)
 
 
-app.include_router(model_server.router, prefix="/api/v1/model_server", tags=["ml/dl"])
+app.include_router(model_server.router, prefix="/api/v1", tags=["ml/dl"])

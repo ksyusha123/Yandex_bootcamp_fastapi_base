@@ -11,6 +11,7 @@ class S3(BaseSettings):
         env_prefix = "S3_"
 
     bucket: str = "studcamp-ml"
+    last_data_with_prediction_name: str = "last_hundred_imoex.csv"
 
 
 class Redis(BaseSettings):
@@ -47,6 +48,7 @@ class Settings(BaseSettings):
     api: UvicornURL = UvicornURL()
     project: ProjectSettings = ProjectSettings()
     redis: Redis = Redis()
+    s3: S3 = S3()
 
 
 @lru_cache

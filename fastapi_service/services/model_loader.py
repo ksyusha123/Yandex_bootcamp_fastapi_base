@@ -2,33 +2,40 @@ import logging
 import os
 from abc import ABC
 from typing import Any
+import io
 
 import boto3
+import pandas as pd
+
 
 from fastapi_service.settings.settings import settings, Settings
 
-LOCAL_MODELS_PATH = os.path.dirname(settings.project.base_dir) + settings.project.models_path
 
 logger = logging.getLogger(__name__)
 
-s3 = boto3.client('s3')
+s3 = boto3.client(service_name='s3', 
+    aws_access_key_id="YCAJECvPrtDYIIjKtp35Eqojy",
+    aws_secret_access_key="YCPRffC5ktATSJCqfToKXC6vFzI3BTS5WMp_1avT",
+    region_name="ru-central1",
+    endpoint_url='https://storage.yandexcloud.net')
 
 
-class AbstractModelGetter(ABC):
+class AbstractLoader(ABC):
 
-    def get_model(self, conf: Settings) -> Any:
-        """Get model from S3 if possible
+    def get(self, conf: Settings) -> Any:
+        """Get entity if possible
         """
 
         raise NotImplemented
 
 
-class ModelLoader(AbstractModelGetter):
-    def get_model(self, conf: Settings) -> bytes:
-        response = s3.get_object(Bucket=conf.s3.bucket_name, Key=conf.s3.model_key)
+class S3Loader(AbstractLoader):
+    def get(self, conf: Settings) -> bytes:
+        response = s3.get_object(Bucket=conf.s3.bucket, Key=conf.s3.last_data_with_prediction_name)
         model_bytes = response['Body'].read()
         return model_bytes
 
 
-def get_torch_models() -> bytes:
-    return ModelLoader().get_model(settings)
+def get_last_data_with_prediction() -> pd.DataFrame:
+    csv = S3Loader().get(settings).decode('utf-8')
+    return pd.read_csv(io.StringIO(csv))
