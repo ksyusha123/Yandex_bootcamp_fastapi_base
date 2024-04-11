@@ -3,6 +3,7 @@ import os
 from abc import ABC
 from typing import Any
 import io
+import os
 
 import boto3
 import pandas as pd
@@ -13,11 +14,11 @@ from fastapi_service.settings.settings import settings, Settings
 
 logger = logging.getLogger(__name__)
 
-s3 = boto3.client(service_name='s3', 
-    aws_access_key_id="YCAJECvPrtDYIIjKtp35Eqojy",
-    aws_secret_access_key="YCPRffC5ktATSJCqfToKXC6vFzI3BTS5WMp_1avT",
-    region_name="ru-central1",
-    endpoint_url='https://storage.yandexcloud.net')
+s3 = boto3.client(service_name="s3", 
+    aws_access_key_id=os.environ["S3_ACCESS_KEY_ID"],
+    aws_secret_access_key=os.environ["S3_SECRET_ACCESS_KEY"],
+    region_name=os.environ["S3_DEFAULT_REGION"],
+    endpoint_url="https://storage.yandexcloud.net")
 
 
 class AbstractLoader(ABC):
