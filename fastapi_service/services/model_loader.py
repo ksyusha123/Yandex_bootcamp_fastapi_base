@@ -40,3 +40,9 @@ class S3Loader(AbstractLoader):
 def get_last_data_with_prediction(index_name) -> pd.DataFrame:
     csv = S3Loader().get(f'last_hundred_{index_name}.csv', settings).decode('utf-8')
     return pd.read_csv(io.StringIO(csv))
+
+def get_latest_news(day) -> pd.DataFrame:
+    csv = S3Loader().get('finam_news_scored.csv', settings).decode('utf-8')
+    df = pd.read_csv(io.StringIO(csv))
+    df = df.loc[df.day == day]
+    return df

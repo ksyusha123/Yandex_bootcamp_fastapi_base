@@ -12,3 +12,8 @@ router = APIRouter()
 async def predict_item(index_name: str = "imoex"):
     df = get_last_data_with_prediction(index_name)
     return df.to_dict()
+
+@router.get("/news")
+async def predict_item(day : str):
+    df = get_last_data_with_prediction(day)
+    return df.to_dict()
