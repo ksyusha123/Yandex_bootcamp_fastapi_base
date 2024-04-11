@@ -2,7 +2,7 @@ import logging
 
 from fastapi import APIRouter
 
-from fastapi_service.services.model_loader import get_last_data_with_prediction
+from fastapi_service.services.model_loader import get_last_data_with_prediction, get_latest_news
 
 logger = logging.getLogger()
 router = APIRouter()
@@ -14,6 +14,6 @@ async def predict_item(index_name: str = "imoex"):
     return df.to_dict()
 
 @router.get("/news")
-async def predict_item(day : str):
-    df = get_last_data_with_prediction(day)
+async def get_news(day : str):
+    df = get_latest_news(day)
     return df.to_dict()
