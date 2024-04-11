@@ -10,7 +10,7 @@ class S3(BaseSettings):
     class Config:
         env_prefix = "S3_"
 
-    bucket: str = "bucket_name"
+    bucket: str = "studcamp-ml"
 
 
 class Redis(BaseSettings):
@@ -39,7 +39,7 @@ class ProjectSettings(BaseSettings):
         env_prefix = "SETTINGS_"
 
     base_dir: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    project_name: str = "fastapi_base"
+    project_name: str = "studcamp_ml_api"
     log_file: bool = False
 
 

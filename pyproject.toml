@@ -6,12 +6,6 @@ authors = [" John Smith <john@example.com>"]
 readme = "README.md"
 
 
-[[tool.poetry.source]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu121"
-priority = "supplemental"
-
-
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.110.1"
